@@ -1,0 +1,48 @@
+#korzystamy z PySide6
+#licencja GPL od LGPL różni się tym, że w przypadku GPL trzeba udostępniać wraz z kodem źródłowym
+
+import sys
+from PySide6.QtWidgets import QWidget, QLabel, QApplication, QGridLayout, QLineEdit
+# from PySide6.QtCore import
+from PySide6.QtGui import QFont, QIcon
+#QVBoxLayout - do wprowadzania label tekstowego
+
+#tworzymy widżet za pomoca klasy
+class AppWidget(QWidget):
+    def __init__(self, to_translate):      #wywołanie init (nie korzystając z QWidget gdzie też jest init)
+        super().__init__()        #linijka (super) żeby init z QWidget też został wykonany (dodajemy a nie nadpisujemy)
+        self.to_translate = to_translate
+        self.layout = self.initial()    #korzystamy z metody initial
+        self.setLayout(self.layout)               #AppWidget ustawiamy na tym layoucie
+
+    def initial(self):                      #funkcja (metoda) do inicjalizacji layoutu
+        row = 0     #wiersz dodawanych elementów (do pętli for)
+        grid = QGridLayout()      #w jakich komórkach (grid dzieli pole okna na części- w pionie i poziomie)
+        for key in self.to_translate:
+            label = QLabel(key)  # tworzymy komponent etykiety (label) ze słówkami z to_translate (może byc z tekstem)
+            label.setFont(QFont('SansSerif', 15))  # ustawiamy wielkość label (font)
+            enter = QLineEdit()     #komponent wprowadzania tekstu
+# tworzymy rozmieszczenie etykiet (label) i pól (enter), może być także(4 kolumny):(0,0)(0,1)(0,2)(0,3)
+            grid.addWidget(label, row, 0)
+            grid.addWidget(enter, row, 1)
+            row += 1
+
+        return grid
+
+
+if __name__ == '__main__':
+    #tworzymy słownik słówek do tłumaczenia
+    to_translate = {
+        'dog': 'pies',
+        'cat': 'kot',
+        'snake': 'wąż',
+        'cow': 'krowa'
+    }
+
+    app = QApplication([])
+    app.setApplicationDisplayName('Nauka słówek')     #zmieniamy nazwę okienka (z python na "Nauka słówek")
+    app.setWindowIcon(QIcon('kg.ico'))     #wstawiamy ikonkę do okienka
+    appWidget = AppWidget(to_translate)     #tworzymy widżet appWidget i dodajemy do main (przenosimy do niego słownik)
+    appWidget.resize(800, 600)               #skalujemy (wymiarujemy) appWidget
+    appWidget.show()                        #pokazujemy appWidget
+    sys.exit(app.exec())
