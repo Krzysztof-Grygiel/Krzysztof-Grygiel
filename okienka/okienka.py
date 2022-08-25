@@ -2,14 +2,14 @@
 #licencja GPL od LGPL różni się tym, że w przypadku GPL trzeba udostępniać wraz z kodem źródłowym
 
 import sys
-from PySide6.QtWidgets import QWidget, QLabel, QApplication, QGridLayout, QLineEdit, QPushButton
+from PySide6.QtWidgets import QWidget, QLabel, QApplication, QGridLayout, QLineEdit, QPushButton, QMessageBox
 # from PySide6.QtCore import
 from PySide6.QtGui import QFont, QIcon
 #QVBoxLayout - do wprowadzania label tekstowego
 
 
 
-#tworzymy klasę, któa będzie przechowywała label i enter
+#tworzymy klasę, która będzie przechowywała label i enter
 class Translation():
     def __init__(self, to_translate, input_form, translated, correct):
         self.to_translate = to_translate
@@ -22,24 +22,35 @@ class Translation():
 class AppWidget(QWidget):
     def __init__(self, words):      #wywołanie init (nie korzystając z QWidget gdzie też jest init)
         super().__init__()        #linijka (super) żeby init z QWidget też został wykonany (dodajemy a nie nadpisujemy)
+        self.points = 0
         self.words = words
         self.state = []   #przechowanie w liście
         self.layout = self.initial()    #korzystamy z metody initial
         self.setLayout(self.layout)               #AppWidget ustawiamy na tym layoucie
 
     def admit(self):    #akcja do uruchamiania po naciśnięciu przycisku "Sprawdź"
-        print('Boom')
+        for inline in self.state:
+            if inline.correct == inline.input_form.text():
+                self.points += 1
+            # print(inline.text())  #pobieramy tekst przycisku
+
+        print(f'Zdobywasz {self.points} punktów')
+        msg = QMessageBox()
+        msg.setText((f'Zdobywasz {self.points} punktów'))
+        msg.exec()
 
     def initial(self):                      #funkcja (metoda) do inicjalizacji layoutu
         row = 0     #wiersz dodawanych elementów (do pętli for)
         grid = QGridLayout()      #w jakich komórkach (grid dzieli pole okna na części- w pionie i poziomie)
+
 
         for key, correct in self.words.items():
             to_translate = QLabel(key)  # tworzymy komponent etykiety (label) ze słówkami z words (może byc z tekstem)
             to_translate.setFont(QFont('SansSerif', 15))  # ustawiamy wielkość label (font)
             input_form = QLineEdit()     #komponent wprowadzania tekstu
 # tworzymy rozmieszczenie etykiet (label) i pól (enter), może być także(4 kolumny):(0,0)(0,1)(0,2)(0,3)
-            self.state.append(Translation(to_translate, input_form, '', correct))
+            self.state.append(Translation(key, input_form, '', correct))
+
             grid.addWidget(to_translate, row, 0)
             grid.addWidget(input_form, row, 1)
             row += 1
