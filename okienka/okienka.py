@@ -22,7 +22,7 @@ class Translation():
 class AppWidget(QWidget):
     def __init__(self, words):      #wywołanie init (nie korzystając z QWidget gdzie też jest init)
         super().__init__()        #linijka (super) żeby init z QWidget też został wykonany (dodajemy a nie nadpisujemy)
-        self.points = 0
+        self.points = 0     #ustalenie liczby punktów na 0
         self.words = words
         self.state = []   #przechowanie w liście
         self.layout = self.initial()    #korzystamy z metody initial
@@ -30,20 +30,21 @@ class AppWidget(QWidget):
 
     def admit(self):    #akcja do uruchamiania po naciśnięciu przycisku "Sprawdź"
         for inline in self.state:
-            if inline.correct == inline.input_form.text():
+            if inline.correct == inline.input_form.text():    #do zliczania punktów
                 self.points += 1
-            # print(inline.text())  #pobieramy tekst przycisku
+            # print(inline.correct)      #pobieramy tekst do poprawnych odpowiedzi
+            # print(inline.input_form.text())  #pobieramy tekst przycisku
 
-        print(f'Zdobywasz {self.points} punktów')
-        msg = QMessageBox()
-        msg.setText((f'Zdobywasz {self.points} punktów'))
+        print(f'Zdobywasz {self.points} punktów')    #wyświetla w konsoli
+        msg = QMessageBox()                    #do wyświetlania w nowym okienku
+        msg.setText(f'Zdobywasz {self.points} punktów')
         msg.exec()
 
     def initial(self):                      #funkcja (metoda) do inicjalizacji layoutu
         row = 0     #wiersz dodawanych elementów (do pętli for)
         grid = QGridLayout()      #w jakich komórkach (grid dzieli pole okna na części- w pionie i poziomie)
 
-
+#
         for key, correct in self.words.items():
             to_translate = QLabel(key)  # tworzymy komponent etykiety (label) ze słówkami z words (może byc z tekstem)
             to_translate.setFont(QFont('SansSerif', 15))  # ustawiamy wielkość label (font)
