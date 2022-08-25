@@ -3,9 +3,6 @@ from math import sqrt
 print('Poszukujesz klucza na polu o wymiarach [x, y]')
 print('Podaj wielkość pola do przeszukania: ')
 
-# x_max = 0
-# y_max = 0
-
 while True:
     try:
         x_max = int(input('Podaj wartość maksymalną w poziomie [x]: '))
