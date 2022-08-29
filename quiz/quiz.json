@@ -1,0 +1,104 @@
+[
+  {
+    "question": "Która z poniższych instrukcji pozwala wczytać liczbę wprowadzoną z klawiatury i zapisać ją w zmiennej x typu int?",
+    "answers": [
+      {
+        "text": "input x",
+        "correct": false
+      },
+      {
+        "text": "x = int(input())",
+        "correct": true
+      },
+      {
+        "text": "read(x)",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "question": "Jakiego operatora należy użyć, aby sprawdzić czy zmienne x oraz y typu int zawierają tę samą zawartość?",
+    "answers": [
+      {
+        "text": "eq",
+        "correct": false
+      },
+      {
+        "text": "=",
+        "correct": false
+      },
+      {
+        "text": "==",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "question": "W jaki sposób zwiększyć wartość zmiennej x typu int o wartość zmiennej y typu int?",
+    "answers": [
+      {
+        "text": "x += y",
+        "correct": true
+      },
+      {
+        "text": "x = y",
+        "correct": false
+      },
+      {
+        "text": "x = x + y",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "question": "Jakim znakiem w pythonie oznaczamy potęgowanie?",
+    "answers": [
+      {
+        "text": "^",
+        "correct": false
+      },
+      {
+        "text": "/",
+        "correct": false
+      },
+      {
+        "text": "**",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "question": "Co oznacza typ danych float?",
+    "answers": [
+      {
+        "text": "wartość zmiennopozycyjna, liczba rzeczywista",
+        "correct": true
+      },
+      {
+        "text": "liczba całkowita",
+        "correct": false
+      },
+      {
+        "text": "napis",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "question": "Jakiego kodu używamy, aby zezwolić lub zapobiec uruchomieniu części kodu podczas importu modułów?",
+    "answers": [
+      {
+        "text": " if __main__ == \"__main__\" ",
+        "correct": false
+      },
+      {
+        "text": " if __name__ == \"__main__\" ",
+        "correct": true
+      },
+      {
+        "text": " if name = \"main\" ",
+        "correct": false
+      }
+    ]
+  }
+]
