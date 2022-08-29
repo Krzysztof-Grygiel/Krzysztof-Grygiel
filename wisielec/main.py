@@ -1,7 +1,54 @@
 import sys
+import random
 
-nr_tries = 5
-word ="kammilka"
+words5 = ('szafa', 'galon')
+words6 = ('miasto', 'kelner', 'beczka', 'papier')
+words7 = ('bandyta', 'zegarek', 'telefon', 'okulary', 'kominek')
+words8 = ('szlachta', 'świeczka')
+
+while True:
+    try:
+        difficulty = int(input('Ile liter ma mieć słowo <5, 6, 7 czy 8>? Wpisz cyfrę: '))
+
+        match int(difficulty):
+            case 5:
+                word = random.choice(words5)
+                nr_tries = 4
+            case 6:
+                word = random.choice(words6)
+                nr_tries = 5
+            case 7:
+                word = random.choice(words7)
+                nr_tries = 6
+            case 8:
+                word = random.choice(words6)
+                nr_tries = 7
+            case _:
+                print()
+                print('Wpisz cyfrę 5 lub 6 lub 7 lub 8!!!')
+                continue
+        break
+
+# można także zamiast funkcji match skorzystać z poniższego kodu
+        # if difficulty == 5:
+        #     word = random.choice(words5)
+        #     nr_tries = 3
+        # elif difficulty == 6:
+        #     word = random.choice(words6)
+        #     nr_tries = 4
+        # elif difficulty == 7:
+        #     word = random.choice(words6)
+        #     nr_tries = 5
+        # elif difficulty == 8:
+        #     word = random.choice(words6)
+        #     nr_tries = 6
+        # break
+
+    except (ValueError, NameError):
+        print('Wpisz cyfrę 5 lub 6 lub 7 lub 8!!!')
+
+print(f'Możesz popełnić {nr_tries} błędów')
+
 used_letters = []
 
 user_word = []
@@ -22,6 +69,11 @@ def show_state_of_game():
     print("Użyte litery:", used_letters)
     print()
 
+def end_game():
+    print('Czy chcesz zagrać jeszcze raz? (tak lub nie)')
+    if not input('> ').lower().startswith('t'):
+        sys.exit(0)
+
 for _ in word:              #zmiennej _ nie wykorzystujemy w kodzie dalej
     user_word.append("_")
 
@@ -37,7 +89,7 @@ while True:
 
         if nr_tries == 0:
             print("Koniec gry :(")
-            sys.exit(0)
+            end_game()
 
     else:
         for index in found_indexes:
@@ -45,6 +97,6 @@ while True:
 
         if "".join(user_word) == word:
             print("Brawo. To jest to słowo")
-            sys.exit(0)
+            end_game()
 
     show_state_of_game()
